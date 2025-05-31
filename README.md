@@ -10,7 +10,7 @@
 | 22/1007706  |  Elias Faria de Oliveira |
 
 ## Sobre
-O Greedy Otimized Timetable proporciona ao usuário(um estudadante especificamente) calcular quantos recursos/intevalos de tempo ele necessitará para realizar suas atividades acadêmicas. O usuário poderá cadastrar tarefas e o sistema irá gerenciar e apresentar ao usuário os intervalos de tempo necessários para realizar as tarefas cadastradas durante o dia. O cálculo é feito a partir do algoritmo interval partition, utlizando uma estrutua de ordenação HEAP.
+O Greedy Otimized Timetable proporciona ao usuário ordenar suas atividades da melhor forma possível, mas sem permitir nenhum conflinto entre tarefas para um recurso existente. O usuário poderá cadastrar tarefas e o sistema irá gerenciar e apresentar ao usuário os intervalos de tempo necessários para realizar as tarefas cadastradas durante o dia. O cálculo é feito a partir do algoritmo interval partition, utlizando uma estrutua de ordenação HEAP.
 
 ## Screenshots
 
@@ -23,7 +23,7 @@ Screenshot da tela Home do projeto:
 ![Vídeo]()
 
 ## Uso 
-Funcionamento da APlicação
+Funcionamento da Aplicação
 
 ## Outros 
 Quaisquer outras informações sobre seu projeto podem ser descritas abaixo.
