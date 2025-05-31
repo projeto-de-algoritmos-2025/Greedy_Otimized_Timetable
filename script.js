@@ -23,3 +23,36 @@ const otimizarBtn = document.getElementById('otimizarBtn');
 const limparBtn = document.getElementById('limparBtn');
 const minRecursosParagrafo = document.getElementById('minRecursos');
 const alocacaoRecursosDiv = document.getElementById('alocacaoRecursos');
+
+// Adiciona um compromisso à lista e atualiza a interface
+function adicionarCompromisso() {
+    const nome = nomeCompromissoInput.value.trim();
+    const inicioStr = inicioCompromissoInput.value;
+    const fimStr = fimCompromissoInput.value;
+
+    if (!nome  !inicioStr  !fimStr) {
+        alert('Por favor, preencha todos os campos do compromisso.');
+        return;
+    }
+
+    const inicioMin = timeToMinutes(inicioStr);
+    const fimMin = timeToMinutes(fimStr);
+
+    if (inicioMin >= fimMin) {
+        alert('O horário de início deve ser anterior ao horário de término.');
+        return;
+    }
+
+    const novoCompromisso = {
+        id: Date.now(), // ID único para o compromisso (usado para remover)
+        nome,
+        inicio: inicioMin,
+        fim: fimMin,
+        inicioStr, // Manter a string original para exibição
+        fimStr     // Manter a string original para exibição
+    };
+
+    compromissos.push(novoCompromisso);
+    renderizarCompromissos(); // Atualiza a lista exibida
+    limparCamposFormulario();
+}
