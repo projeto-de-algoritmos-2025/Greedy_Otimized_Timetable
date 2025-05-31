@@ -85,3 +85,10 @@ function renderizarCompromissos() {
         });
     });
 }
+
+// Limpa os campos do formulário de adicionar compromisso
+function limparCamposFormulario() {
+    nomeCompromissoInput.value = '';
+    inicioCompromissoInput.value = '';
+    fimCompromissoInput.value = '';
+}
