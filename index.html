@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Otimizador de Grade Horária</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Otimizador de Grade Horária Pessoal</h1>
+        <p>Informe seus compromissos (aulas, reuniões, etc.) para descobrir o número mínimo de "recursos" (salas/slots) necessários para acomodá-los sem sobreposição.</p>
+
+        <div class="input-section">
+            <h2>Adicionar Compromisso</h2>
+            <div class="form-group">
+                <label for="nomeCompromisso">Nome:</label>
+                <input type="text" id="nomeCompromisso" placeholder="Ex: Aula de Algoritmos" required>
+            </div>
+            <div class="form-group">
+                <label for="inicioCompromisso">Início (HH:MM):</label>
+                <input type="time" id="inicioCompromisso" required>
+            </div>
+            <div class="form-group">
+                <label for="fimCompromisso">Fim (HH:MM):</label>
+                <input type="time" id="fimCompromisso" required>
+            </div>
+            <button id="addCompromissoBtn">Adicionar Compromisso</button>
+        </div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
