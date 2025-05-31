@@ -12,3 +12,14 @@ function minutesToTime(totalMinutes) {
     const minutes = totalMinutes % 60;
     return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
 }
+
+//manipulação da Interface
+const nomeCompromissoInput = document.getElementById('nomeCompromisso');
+const inicioCompromissoInput = document.getElementById('inicioCompromisso');
+const fimCompromissoInput = document.getElementById('fimCompromisso');
+const addCompromissoBtn = document.getElementById('addCompromissoBtn');
+const listaCompromissosUl = document.getElementById('listaCompromissos');
+const otimizarBtn = document.getElementById('otimizarBtn');
+const limparBtn = document.getElementById('limparBtn');
+const minRecursosParagrafo = document.getElementById('minRecursos');
+const alocacaoRecursosDiv = document.getElementById('alocacaoRecursos');
