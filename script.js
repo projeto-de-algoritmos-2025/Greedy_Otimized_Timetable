@@ -30,7 +30,7 @@ function adicionarCompromisso() {
     const inicioStr = inicioCompromissoInput.value;
     const fimStr = fimCompromissoInput.value;
 
-    if (!nome  !inicioStr  !fimStr) {
+    if (!nome ||  !inicioStr || !fimStr) {
         alert('Por favor, preencha todos os campos do compromisso.');
         return;
     }
@@ -55,4 +55,33 @@ function adicionarCompromisso() {
     compromissos.push(novoCompromisso);
     renderizarCompromissos(); // Atualiza a lista exibida
     limparCamposFormulario();
+}
+
+// Renderiza a lista de compromissos na UL
+function renderizarCompromissos() {
+    listaCompromissosUl.innerHTML = ''; // Limpa a lista existente
+
+    if (compromissos.length === 0) {
+        listaCompromissosUl.innerHTML = '<li>Nenhum compromisso adicionado.</li>';
+        return;
+    }
+
+    compromissos.forEach(comp => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <span>${comp.nome} (${comp.inicioStr} - ${comp.fimStr})</span>
+            <button data-id="${comp.id}">Remover</button>
+        `;
+        listaCompromissosUl.appendChild(li);
+
+        // Adiciona evento para o botão remover
+        li.querySelector('button').addEventListener('click', (event) => {
+            const idParaRemover = parseInt(event.target.dataset.id);
+            compromissos = compromissos.filter(c => c.id !== idParaRemover);
+            renderizarCompromissos(); // Renderiza novamente após a remoção
+            // Limpa resultados anteriores quando a lista é alterada
+            minRecursosParagrafo.textContent = 'Número mínimo de recursos necessários: --';
+            alocacaoRecursosDiv.innerHTML = '<p>Nenhum compromisso alocado ainda.</p>';
+        });
+    });
 }
