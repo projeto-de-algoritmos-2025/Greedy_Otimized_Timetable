@@ -131,6 +131,49 @@ function renderizarAgendamento(agendamento, maxLatenessValue) {
     agendamentoOtimizadoDiv.appendChild(ul);
 }
 
+function otimizarAgendamento() {
+    if (tarefas.length === 0) {
+        alert('Adicione pelo menos uma tarefa para otimizar.');
+        return;
+    }
+
+    // ordenando pela deadline crescente.
+    const tarefasOrdenadas = [...tarefas].sort((a, b) => a.deadline - b.deadline);
+
+    let tempoAtual = 0; // O tempo em que estará livre para a próxima tarefa
+    let maxLateness = 0; 
+    const agendamentoFinal = [];
+
+    for (const tarefa of tarefasOrdenadas) {
+        const tempoInicio = tempoAtual; 
+        const tempoFim = tempoInicio + tarefa.duracao; 
+
+        // latência para esta tarefa somente
+        const latencia = Math.max(0, tempoFim - tarefa.deadline);
+
+        // latência máxima global
+        if (latencia > maxLateness) {
+            maxLateness = latencia;
+        }
+
+        // Armazene a tarefa
+        agendamentoFinal.push({
+            ...tarefa,
+            tempoInicio,
+            tempoFim,
+            lateness: latencia
+        });
+
+        // Atualize o tempo atual para o início da próxima tarefa
+        tempoAtual = tempoFim;
+    }
+
+    //Exibir os resultados
+    maxLatenessParagrafo.textContent = `Latência Máxima: ${maxLateness} minutos`;
+    renderizarAgendamento(agendamentoFinal, maxLateness);
+}
+
+
 ////// listeners
 
 addTarefaBtn.addEventListener('click', adicionarTarefa);
