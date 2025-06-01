@@ -103,13 +103,39 @@ function limparCamposFormulario() {
     deadlineTarefaInput.value = '';
 }
 
+function limparTudo() {
+    tarefas = [];
+    renderizarTarefas();
+    maxLatenessParagrafo.textContent = 'Latência Máxima: -- minutos';
+    agendamentoOtimizadoDiv.innerHTML = '<p>Nenhuma tarefa agendada ainda.</p>';
+}
 
+// Renderiza o agendamento detalhado
+function renderizarAgendamento(agendamento, maxLatenessValue) {
+    agendamentoOtimizadoDiv.innerHTML = ''; // Limpa a área de resultados
 
+    if (agendamento.length === 0) {
+        agendamentoOtimizadoDiv.innerHTML = '<p>Nenhuma tarefa agendada.</p>';
+        return;
+    }
 
-
+    const ul = document.createElement('ul');
+    agendamento.forEach(tarefa => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <strong>${tarefa.nome}</strong>: Início: ${minutesToTime(tarefa.tempoInicio)}, Fim: ${minutesToTime(tarefa.tempoFim)}
+            (Deadline: ${tarefa.deadlineStr}, Latência: <span style="color:${tarefa.lateness > 0 ? 'red' : 'green'}; font-weight: bold;">${tarefa.lateness} min</span>)
+        `;
+        ul.appendChild(li);
+    });
+    agendamentoOtimizadoDiv.appendChild(ul);
+}
 
 ////// listeners
 
 addTarefaBtn.addEventListener('click', adicionarTarefa);
 otimizarBtn.addEventListener('click', otimizarAgendamento);
 limparBtn.addEventListener('click', limparTudo);
+
+//Renderiza as tarefas
+renderizarTarefas();
