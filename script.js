@@ -1,4 +1,4 @@
-let compromissos = []; // compromissos adicionados
+let tarefas = []; // compromissos adicionados
 
 // HH:MM para minutos totais desde 00:00
 function timeToMinutes(timeStr) {
@@ -6,54 +6,64 @@ function timeToMinutes(timeStr) {
     return hours * 60 + minutes;
 }
 
-// minutos totais para HH:MM
+// Converte minutos totais para HH:MM
 function minutesToTime(totalMinutes) {
     const hours = Math.floor(totalMinutes / 60);
     const minutes = totalMinutes % 60;
-    return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+    const displayMinutes = totalMinutes % 60;
+    const displayHours = Math.floor(totalMinutes / 60);
+
+    // Se passar de 24 horas, ainda mostra a hora correta + indicação de dia
+    let dayOffset = '';
+    if (totalMinutes >= 1440) {
+        const days = Math.floor(totalMinutes / 1440);
+        dayOffset = ` (+${days}d)`;
+    }
+
+    return `${String(displayHours % 24).padStart(2, '0')}:${String(displayMinutes).padStart(2, '0')}${dayOffset}`;
 }
 
 //manipulação da Interface
-const nomeCompromissoInput = document.getElementById('nomeCompromisso');
-const inicioCompromissoInput = document.getElementById('inicioCompromisso');
-const fimCompromissoInput = document.getElementById('fimCompromisso');
-const addCompromissoBtn = document.getElementById('addCompromissoBtn');
-const listaCompromissosUl = document.getElementById('listaCompromissos');
+const nomeTarefaInput = document.getElementById('nomeTarefa');
+const duracaoTarefaInput = document.getElementById('duracaoTarefa');
+const deadlineTarefaInput = document.getElementById('deadlineTarefa');
+const addTarefaBtn = document.getElementById('addTarefaBtn');
+const listaTarefasUl = document.getElementById('listaTarefas');
 const otimizarBtn = document.getElementById('otimizarBtn');
 const limparBtn = document.getElementById('limparBtn');
-const minRecursosParagrafo = document.getElementById('minRecursos');
-const alocacaoRecursosDiv = document.getElementById('alocacaoRecursos');
+const maxLatenessParagrafo = document.getElementById('maxLateness');
+const agendamentoOtimizadoDiv = document.getElementById('agendamentoOtimizado');
+
 
 // Adiciona um compromisso à lista e atualiza a interface
-function adicionarCompromisso() {
-    const nome = nomeCompromissoInput.value.trim();
-    const inicioStr = inicioCompromissoInput.value;
-    const fimStr = fimCompromissoInput.value;
+function adicionarTarefa() {
+    const nome = nomeTarefaInput.value.trim();
+    const duracaoStr = duracaoTarefaInput.value;
+    const deadlineStr = deadlineTarefaInput.value;
 
-    if (!nome ||  !inicioStr || !fimStr) {
-        alert('Por favor, preencha todos os campos do compromisso.');
+    if (!nome || !duracaoStr || !deadlineStr) {
+        alert('Por favor, preencha todos os campos da tarefa.');
         return;
     }
 
-    const inicioMin = timeToMinutes(inicioStr);
-    const fimMin = timeToMinutes(fimStr);
-
-    if (inicioMin >= fimMin) {
-        alert('O horário de início deve ser anterior ao horário de término.');
+    const duracao = parseInt(duracaoStr);
+    if (isNaN(duracao) || duracao <= 0) {
+        alert('A duração deve ser um número positivo.');
         return;
     }
 
-    const novoCompromisso = {
-        id: Date.now(), // ID único para o compromisso (usado para remover)
+    const deadlineMin = timeToMinutes(deadlineStr);
+
+    const novaTarefa = {
+        id: Date.now(), // ID único para a tarefa
         nome,
-        inicio: inicioMin,
-        fim: fimMin,
-        inicioStr, // Manter a string original para exibição
-        fimStr     // Manter a string original para exibição
+        duracao, // em minutos
+        deadline: deadlineMin, // em minutos
+        deadlineStr // Manter a string original para exibição
     };
 
-    compromissos.push(novoCompromisso);
-    renderizarCompromissos(); // Atualiza a lista exibida
+    tarefas.push(novaTarefa);
+    renderizarTarefas(); // Atualiza a lista exibida
     limparCamposFormulario();
 }
 
