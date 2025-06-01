@@ -29,7 +29,8 @@ Screenshot da tela Home do projeto:
 
 ## Vídeo de apresentação e explicação do sistema TaskList
 
-![Vídeo](https://youtu.be/D7sYntnl_4Y)
+
+![Vídeo](https://www.youtube.com/watch?v=D7sYntnl_4Y&ab_channel=EliasOliveira)
 
 ## Instalação
 **Linguagens**: HTML5, JavaScript e CSS3.
