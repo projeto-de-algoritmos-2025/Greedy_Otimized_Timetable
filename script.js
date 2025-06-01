@@ -176,7 +176,7 @@ function otimizarAgendamento() {
         if (latencia > maxLateness) {
             maxLateness = latencia;
         }
-
+        //Adiciona as tarefas no array, já ordenadas
         agendamentoFinal.push({
             ...tarefa,
             tempoInicio,
