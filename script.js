@@ -25,6 +25,7 @@ function minutesToTime(totalMinutes) {
 
 //manipulação da Interface
 const nomeTarefaInput = document.getElementById('nomeTarefa');
+const horaInicioAgendamentoInput = document.getElementById('horaInicioAgendamento');
 const duracaoTarefaInput = document.getElementById('duracaoTarefa');
 const deadlineTarefaInput = document.getElementById('deadlineTarefa');
 const addTarefaBtn = document.getElementById('addTarefaBtn');
@@ -136,11 +137,17 @@ function otimizarAgendamento() {
         alert('Adicione pelo menos uma tarefa para otimizar.');
         return;
     }
+    
+    const horaInicioAgendamentoStr = horaInicioAgendamentoInput.value;
+    if (!horaInicioAgendamentoStr) {
+        alert('Por favor, informe o horário de início do agendamento.');
+        return;
+    }
+    // Converter o horário de início para minutos para uso no cálculo
+    let tempoAtual = timeToMinutes(horaInicioAgendamentoStr);
 
     // ordenando pela deadline crescente.
     const tarefasOrdenadas = [...tarefas].sort((a, b) => a.deadline - b.deadline);
-
-    let tempoAtual = 0; // O tempo em que estará livre para a próxima tarefa
     let maxLateness = 0; 
     const agendamentoFinal = [];
 
