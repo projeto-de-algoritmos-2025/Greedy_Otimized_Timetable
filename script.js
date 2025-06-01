@@ -102,3 +102,14 @@ function limparCamposFormulario() {
     duracaoTarefaInput.value = '';
     deadlineTarefaInput.value = '';
 }
+
+
+
+
+
+
+////// listeners
+
+addTarefaBtn.addEventListener('click', adicionarTarefa);
+otimizarBtn.addEventListener('click', otimizarAgendamento);
+limparBtn.addEventListener('click', limparTudo);
