@@ -16,11 +16,12 @@ O Greedy Shortest Delay Time é um sistema com o objetivo de gerenciar tarefas, 
 
 Screenshot da tela Home do projeto:
 
-
-
 ## Vídeo de apresentação e explicação do sistema TaskList
 
 ![Vídeo]()
+
+## Instalação
+**Linguagens**: HTML5, JavaScript e CSS3.
 
 ## Uso 
 Funcionamento da Aplicação
