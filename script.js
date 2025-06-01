@@ -1,6 +1,6 @@
-let tarefas = []; // compromissos adicionados
 
-// HH:MM para minutos totais desde 00:00
+let tarefas = []; // Armazenará todas as tarefas adicionadas
+
 function timeToMinutes(timeStr) {
     const [hours, minutes] = timeStr.split(':').map(Number);
     return hours * 60 + minutes;
@@ -10,22 +10,24 @@ function timeToMinutes(timeStr) {
 function minutesToTime(totalMinutes) {
     const hours = Math.floor(totalMinutes / 60);
     const minutes = totalMinutes % 60;
-    const displayMinutes = totalMinutes % 60;
-    const displayHours = Math.floor(totalMinutes / 60);
-
-    // Se passar de 24 horas, ainda mostra a hora correta + indicação de dia
+    
+    // Calcula o offset de dias para exibição
     let dayOffset = '';
-    if (totalMinutes >= 1440) {
+    if (totalMinutes >= 1440) { // 1440 minutos = 24 horas
         const days = Math.floor(totalMinutes / 1440);
         dayOffset = ` (+${days}d)`;
     }
 
-    return `${String(displayHours % 24).padStart(2, '0')}:${String(displayMinutes).padStart(2, '0')}${dayOffset}`;
+    const displayHours = Math.floor(totalMinutes / 60) % 24;
+    const displayMinutes = totalMinutes % 60;
+
+    return `${String(displayHours).padStart(2, '0')}:${String(displayMinutes).padStart(2, '0')}${dayOffset}`;
 }
 
-//manipulação da Interface
-const nomeTarefaInput = document.getElementById('nomeTarefa');
+
+// --- 3. Funções de Manipulação da Interface ---
 const horaInicioAgendamentoInput = document.getElementById('horaInicioAgendamento');
+const nomeTarefaInput = document.getElementById('nomeTarefa');
 const duracaoTarefaInput = document.getElementById('duracaoTarefa');
 const deadlineTarefaInput = document.getElementById('deadlineTarefa');
 const addTarefaBtn = document.getElementById('addTarefaBtn');
@@ -49,24 +51,36 @@ function adicionarTarefa() {
 
     const duracao = parseInt(duracaoStr);
     if (isNaN(duracao) || duracao <= 0) {
-        alert('A duração deve ser um número positivo.');
+        alert('A duração deve ser um número inteiro positivo.');
         return;
     }
 
     const deadlineMin = timeToMinutes(deadlineStr);
+    const horaInicioAgendamentoMin = timeToMinutes(horaInicioAgendamentoInput.value);
+
+    if (deadlineMin < horaInicioAgendamentoMin) {
+        if (horaInicioAgendamentoMin - deadlineMin > 1380) { 
+             alert(`A deadline (${deadlineStr}) parece ser de um dia anterior ao horário de início do agendamento (${horaInicioAgendamentoInput.value}). Por favor, ajuste a deadline.`);
+             return;
+        }
+        alert(`A deadline (${deadlineStr}) é anterior ao horário de início do agendamento (${horaInicioAgendamentoInput.value}). A tarefa poderá iniciar apenas a partir de ${horaInicioAgendamentoInput.value}, o que pode resultar em latência.`);
+    }
 
     const novaTarefa = {
-        id: Date.now(), // ID único para a tarefa
+        id: Date.now(),
         nome,
-        duracao, // em minutos
-        deadline: deadlineMin, // em minutos
-        deadlineStr // Manter a string original para exibição
+        duracao,
+        deadline: deadlineMin,
+        deadlineStr
     };
 
     tarefas.push(novaTarefa);
-    renderizarTarefas(); // Atualiza a lista exibida
+    renderizarTarefas();
     limparCamposFormulario();
+    maxLatenessParagrafo.textContent = 'Latência Máxima: -- minutos';
+    alocamentoOtimizadoDiv.innerHTML = '<p>Nenhuma tarefa agendada ainda.</p>';
 }
+
 
 // Renderiza a lista de compromissos na UL
 function renderizarTarefas() {
@@ -101,7 +115,6 @@ function renderizarTarefas() {
 function limparCamposFormulario() {
     nomeTarefaInput.value = '';
     duracaoTarefaInput.value = '';
-    deadlineTarefaInput.value = '';
 }
 
 function limparTudo() {
@@ -132,38 +145,38 @@ function renderizarAgendamento(agendamento, maxLatenessValue) {
     agendamentoOtimizadoDiv.appendChild(ul);
 }
 
+
 function otimizarAgendamento() {
     if (tarefas.length === 0) {
         alert('Adicione pelo menos uma tarefa para otimizar.');
         return;
     }
-    
+
     const horaInicioAgendamentoStr = horaInicioAgendamentoInput.value;
     if (!horaInicioAgendamentoStr) {
         alert('Por favor, informe o horário de início do agendamento.');
         return;
     }
-    // Converter o horário de início para minutos para uso no cálculo
     let tempoAtual = timeToMinutes(horaInicioAgendamentoStr);
-
-    // ordenando pela deadline crescente.
+    
+    // Ordenar pela deadline crescente.
     const tarefasOrdenadas = [...tarefas].sort((a, b) => a.deadline - b.deadline);
-    let maxLateness = 0; 
+
+    let maxLateness = 0; // A latência máxima encontrada até agora
     const agendamentoFinal = [];
 
     for (const tarefa of tarefasOrdenadas) {
         const tempoInicio = tempoAtual; 
         const tempoFim = tempoInicio + tarefa.duracao; 
 
-        // latência para esta tarefa somente
+        // Calcule a latência para esta tarefa
         const latencia = Math.max(0, tempoFim - tarefa.deadline);
 
-        // latência máxima global
+        // Atualize a latência máxima global
         if (latencia > maxLateness) {
             maxLateness = latencia;
         }
 
-        // Armazene a tarefa
         agendamentoFinal.push({
             ...tarefa,
             tempoInicio,
@@ -171,21 +184,15 @@ function otimizarAgendamento() {
             lateness: latencia
         });
 
-        // Atualize o tempo atual para o início da próxima tarefa
         tempoAtual = tempoFim;
     }
 
-    //Exibir os resultados
     maxLatenessParagrafo.textContent = `Latência Máxima: ${maxLateness} minutos`;
     renderizarAgendamento(agendamentoFinal, maxLateness);
 }
-
-
-////// listeners
 
 addTarefaBtn.addEventListener('click', adicionarTarefa);
 otimizarBtn.addEventListener('click', otimizarAgendamento);
 limparBtn.addEventListener('click', limparTudo);
 
-//Renderiza as tarefas
 renderizarTarefas();
