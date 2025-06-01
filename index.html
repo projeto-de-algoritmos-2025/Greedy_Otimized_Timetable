@@ -3,51 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Otimizador de Grade Horária</title>
+    <title>Otimizador de Tarefas: Min. Latência</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Otimizador de Grade Horária Pessoal</h1>
-        <p>Informe seus compromissos (aulas, reuniões, etc.) para descobrir o número mínimo de "recursos" (salas/slots) necessários para acomodá-los sem sobreposição.</p>
+        <h1>Otimizador de Tarefas: Min. Latência</h1>
+        <p>Informe suas tarefas com duração e prazo final (deadline) para agendá-las de forma a minimizar o atraso máximo.</p>
 
         <div class="input-section">
-            <h2>Adicionar Compromisso</h2>
+            <h2>Adicionar Tarefa</h2>
             <div class="form-group">
-                <label for="nomeCompromisso">Nome:</label>
-                <input type="text" id="nomeCompromisso" placeholder="Ex: Aula de Algoritmos" required>
+                <label for="nomeTarefa">Nome da Tarefa:</label>
+                <input type="text" id="nomeTarefa" placeholder="Ex: Relatório de Projeto" required>
             </div>
             <div class="form-group">
-                <label for="inicioCompromisso">Início (HH:MM):</label>
-                <input type="time" id="inicioCompromisso" required>
+                <label for="duracaoTarefa">Duração (minutos):</label>
+                <input type="number" id="duracaoTarefa" min="1" required>
             </div>
             <div class="form-group">
-                <label for="fimCompromisso">Fim (HH:MM):</label>
-                <input type="time" id="fimCompromisso" required>
+                <label for="deadlineTarefa">Deadline (HH:MM):</label>
+                <input type="time" id="deadlineTarefa" required>
             </div>
-            <button id="addCompromissoBtn">Adicionar Compromisso</button>
+            <button id="addTarefaBtn">Adicionar Tarefa</button>
         </div>
 
-
         <div class="list-section">
-            <h2>Compromissos Adicionados</h2>
-            <ul id="listaCompromissos">
+            <h2>Tarefas Adicionadas</h2>
+            <ul id="listaTarefas">
                 </ul>
-            <button id="otimizarBtn">Otimizar Grade</button>
+            <button id="otimizarBtn">Otimizar Agendamento</button>
             <button id="limparBtn" class="clear-button">Limpar Tudo</button>
         </div>
 
         <div class="results-section">
-            <h2>Resultados da Otimização</h2>
-            <p id="minRecursos">Número mínimo de recursos necessários: --</p>
-            <h3>Alocação por Recurso:</h3>
-            <div id="alocacaoRecursos">
-                <p>Nenhum compromisso alocado ainda.</p>
+            <h2>Resultados do Agendamento</h2>
+            <p id="maxLateness">Latência Máxima: -- minutos</p>
+            <h3>Agendamento Otimizado:</h3>
+            <div id="agendamentoOtimizado">
+                <p>Nenhuma tarefa agendada ainda.</p>
             </div>
         </div>
     </div>
 
-    <script src="https://unpkg.com/heap-js@latest/dist/heap.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
