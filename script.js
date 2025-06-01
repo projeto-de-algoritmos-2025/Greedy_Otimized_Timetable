@@ -68,37 +68,37 @@ function adicionarTarefa() {
 }
 
 // Renderiza a lista de compromissos na UL
-function renderizarCompromissos() {
-    listaCompromissosUl.innerHTML = ''; // Limpa a lista existente
+function renderizarTarefas() {
+    listaTarefasUl.innerHTML = ''; // Limpa a lista existente
 
-    if (compromissos.length === 0) {
-        listaCompromissosUl.innerHTML = '<li>Nenhum compromisso adicionado.</li>';
+    if (tarefas.length === 0) {
+        listaTarefasUl.innerHTML = '<li>Nenhuma tarefa adicionada.</li>';
         return;
     }
 
-    compromissos.forEach(comp => {
+    tarefas.forEach(tarefa => {
         const li = document.createElement('li');
         li.innerHTML = `
-            <span>${comp.nome} (${comp.inicioStr} - ${comp.fimStr})</span>
-            <button data-id="${comp.id}">Remover</button>
+            <span>${tarefa.nome} (Duração: ${tarefa.duracao} min, Deadline: ${tarefa.deadlineStr})</span>
+            <button data-id="${tarefa.id}">Remover</button>
         `;
-        listaCompromissosUl.appendChild(li);
+        listaTarefasUl.appendChild(li);
 
         // Adiciona evento para o botão remover
         li.querySelector('button').addEventListener('click', (event) => {
             const idParaRemover = parseInt(event.target.dataset.id);
-            compromissos = compromissos.filter(c => c.id !== idParaRemover);
-            renderizarCompromissos(); // Renderiza novamente após a remoção
+            tarefas = tarefas.filter(t => t.id !== idParaRemover);
+            renderizarTarefas(); // Renderiza novamente após a remoção
             // Limpa resultados anteriores quando a lista é alterada
-            minRecursosParagrafo.textContent = 'Número mínimo de recursos necessários: --';
-            alocacaoRecursosDiv.innerHTML = '<p>Nenhum compromisso alocado ainda.</p>';
+            maxLatenessParagrafo.textContent = 'Latência Máxima: -- minutos';
+            agendamentoOtimizadoDiv.innerHTML = '<p>Nenhuma tarefa agendada ainda.</p>';
         });
     });
 }
 
 // Limpa os campos do formulário de adicionar compromisso
 function limparCamposFormulario() {
-    nomeCompromissoInput.value = '';
-    inicioCompromissoInput.value = '';
-    fimCompromissoInput.value = '';
+    nomeTarefaInput.value = '';
+    duracaoTarefaInput.value = '';
+    deadlineTarefaInput.value = '';
 }
