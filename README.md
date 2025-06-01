@@ -16,6 +16,17 @@ O Greedy Shortest Delay Time é um sistema com o objetivo de gerenciar tarefas, 
 
 Screenshot da tela Home do projeto:
 
+### Área de resultados
+![Imagem](./imgs/print-area-resultados.png)
+
+### Área de Adicionar tarefas
+
+![Imagem](./imgs/print-area-tarefas.png)
+
+### Área de definição do horário de início do agendamento
+
+![Imagem](./imgs/print-horario-inicio.png)
+
 ## Vídeo de apresentação e explicação do sistema TaskList
 
 ![Vídeo]()
@@ -26,7 +37,12 @@ Screenshot da tela Home do projeto:
 ## Uso
 Para acessar entre no link do [GitHub Pages](https://projeto-de-algoritmos-2025.github.io/Greedy_Otimized_Timetable/).
 
-Funcionamento da Aplicação
+## Funcionamento da Aplicação:
+
+- Ao acessar a aplicação, defina o horário ao qual deseja iniciar o agendamento das tarefas.
+- Após Cadastre a tarefa adicionando: Nome da tarefa, Duração em minutos e a Deadline e clique em adicionar tarefa
+- Posteriormente na seção tarefas adicionadas clique em otimizar agendamento para verificar as tarefas já ordenadas com a menor latência.
+
 
 ## Outros 
 Quaisquer outras informações sobre seu projeto podem ser descritas abaixo.
