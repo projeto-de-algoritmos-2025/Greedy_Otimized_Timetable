@@ -1,4 +1,4 @@
-# Greedy_Otimized_Timetable
+# Greedy_Shortest_Delay_Time
 
 **Número da Lista**: X<br>
 **Conteúdo da Disciplina**: Projeto de Algoritmos<br>
@@ -10,7 +10,7 @@
 | 22/1007706  |  Elias Faria de Oliveira |
 
 ## Sobre
-O Greedy Otimized Timetable proporciona ao usuário ordenar suas atividades da melhor forma possível, mas sem permitir nenhum conflinto entre tarefas para um recurso existente. O usuário poderá cadastrar tarefas e o sistema irá gerenciar e apresentar ao usuário os intervalos de tempo necessários para realizar as tarefas cadastradas durante o dia. O cálculo é feito a partir do algoritmo interval partition, utlizando uma estrutua de ordenação HEAP.
+O Greedy Shortest Delay Time é um sistema com o objetivo de gerenciar tarefas, de modo que minimize ao máximo possível o tempo de atraso caso ocorra. O Sistema utiliza o algoritmo ambicioso Scheduling Min Lateness.
 
 ## Screenshots
 
