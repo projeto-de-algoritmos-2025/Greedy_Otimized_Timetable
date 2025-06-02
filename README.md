@@ -36,7 +36,9 @@ Screenshot da tela Home do projeto:
 **Linguagens**: HTML5, JavaScript e CSS3.
 
 ## Uso
-Para acessar entre no link do [GitHub Pages](https://projeto-de-algoritmos-2025.github.io/Greedy_Otimized_Timetable/).
+Para acessar entre no link do [GitHub Pages](https://projeto-de-algoritmos-2025.github.io/Greedy_Shortest_Delay_Time/).
+
+Ou abra o arquivo ```index.html``` no seu navegador.
 
 ## Funcionamento da Aplicação:
 
